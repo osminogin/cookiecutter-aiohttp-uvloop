@@ -13,7 +13,10 @@ default: daemon
 daemon:
 	@echo "Running async daemon ..."
 	@pipenv run gunicorn {{cookiecutter.project_slug}}:app --bind localhost:8000 \
-		--worker-class aiohttp.worker.GunicornUVLoopWebWorker
+		--worker-class aiohttp.worker.GunicornUVLoopWebWorker \
+		--workers=2 \
+		--worker-tmp-dir /dev/shm \
+		--log-file=-
 
 test:
 	@pipenv run pytest

@@ -15,6 +15,7 @@ gunicorn = "*"
 requests = "*"
 pytest = "*"
 pytest-asyncio = "*"
+pytest-aiohttp = "*"
 
 [dev-packages]
 flake8 = "*"
