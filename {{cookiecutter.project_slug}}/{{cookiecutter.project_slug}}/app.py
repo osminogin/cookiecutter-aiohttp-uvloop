@@ -1,11 +1,12 @@
 from datetime import datetime
 
+import aiopg
 import aioredis
 from aiohttp import web
 
 from .settings import *  # noqa
 from .utils import get_middlewares, get_version
-from .healthcheck.views import PingCheckView
+from .healthchecks.views import PingCheckView, HealthCheckView
 
 
 def build_app(loop=None):
@@ -25,9 +26,14 @@ async def load_extensions(app) -> None:
     app.started = datetime.utcnow()
     app.version = await get_version()
 
-    # Redis Pool
+    # PostgreSQL connection pool
+    dsn = f"dbname=postgres user=postgres password=postgres host=127.0.0.1"
+    postgres = await aiopg.create_pool(dsn)
+    app.postgres = postgres
+
+    # Redis pool
     redis = await aioredis.create_redis_pool(
-        REDIS_URL,
+        address=REDIS_URL,
         maxsize=REDIS_POOLSIZE or 10,
         timeout=REDIS_TIMEOUT or 60,
         encoding='utf-8',
@@ -39,3 +45,6 @@ async def load_extensions(app) -> None:
 async def cleanup_extensions(app) -> None:
     app.redis.close()
     await app.redis.wait_closed()
+
+    app.postgres.close()
+    await app.postgres.wait_closed()
