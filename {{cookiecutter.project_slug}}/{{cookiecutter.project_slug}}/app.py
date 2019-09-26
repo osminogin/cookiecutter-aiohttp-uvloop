@@ -5,10 +5,10 @@ from aiohttp import web
 
 from .settings import *  # noqa
 from .utils import get_middlewares, get_version
-from healthcheck.views import PingCheckView
+from .healthcheck.views import PingCheckView
 
 
-def build_app(loop=None) -> app:
+def build_app(loop=None):
     app = web.Application(loop=loop, middlewares=get_middlewares())
     app.on_startup.append(load_extensions)
     app.on_cleanup.append(cleanup_extensions)
