@@ -1,8 +1,14 @@
-from datetime import datetime, date
+from datetime import datetime
 from aiohttp import web
 
 
 class PingCheckView(web.View):
+
+    async def get(self):
+        return web.Response(body=b'pong')
+
+
+class HealthCheckView(web.View):
     async def get(self):
         postgres_health = await self._check_postgres()
         redis_health = await self._check_redis()
