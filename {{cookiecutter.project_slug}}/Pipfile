@@ -5,9 +5,10 @@ verify_ssl = true
 
 [packages]
 aiohttp = "*"
+aiopg = "*"
+aioredis = "*"
 aiocache = "*"
 aiofiles = "*"
-aioredis = "*"
 "psycopg2-binary" = ">=2.7.3.2"
 uvloop = "*"
 gunicorn = "*"
