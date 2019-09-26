@@ -4,12 +4,23 @@ from aiohttp import web
 
 class PingCheckView(web.View):
     async def get(self):
+        postgres_health = await self._check_postgres()
         redis_health = await self._check_redis()
         uptime = await self._check_uptime()
         return web.json_response({
+            'postgres': postgres_health,
             'redis': redis_health,
             'uptime': uptime
         })
+
+    async def _check_postgres(self) -> bool:
+        async with self.request.app.postgres.acquire() as conn:
+            async with conn.cursor() as cur:
+                await cur.execute('SELECT 1')
+                ret = []
+                async for row in cur:
+                    ret.append(row)
+                return ret == [(1,)]
 
     async def _check_redis(self) -> bool:
         await self.request.app.redis.set('IS_STARTED', '1')

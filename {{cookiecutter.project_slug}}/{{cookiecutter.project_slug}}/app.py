@@ -19,6 +19,7 @@ def build_app(loop=None):
 
 def register_routes(app) -> None:
     app.router.add_route('*', '/ping/', PingCheckView)
+    app.router.add_route('*', '/health/', HealthCheckView)
 
 
 async def load_extensions(app) -> None:
