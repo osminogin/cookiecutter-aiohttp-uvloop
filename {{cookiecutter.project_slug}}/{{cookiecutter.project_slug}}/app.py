@@ -1,27 +1,31 @@
+import time
+
 import aioredis
 from aiohttp import web
 
 from .settings import *  # noqa
-from .healthcheck.routes import register_routes as register_heathcheck_routes
 from .utils import get_middlewares, get_version
+from healthcheck.views import PingCheckView
 
 
-def build_app(loop=None):
+def build_app(loop=None) -> app:
     app = web.Application(loop=loop, middlewares=get_middlewares())
-    app.on_startup.append(load_plugins)
-    app.on_cleanup.append(cleanup_plugins)
+    app.on_startup.append(load_extensions)
+    app.on_cleanup.append(cleanup_extensions)
     register_routes(app)
     return app
 
 
-def register_routes(app):
-    register_heathcheck_routes(app)
+def register_routes(app) -> None:
+    app.router.add_route('*', '/ping/', PingCheckView)
 
 
-async def load_plugins(app):
-    version = await get_version()
-    app.version = version
+async def load_extensions(app) -> None:
+    # Additional data
+    app.uptime = time.time()
+    app.version = await get_version()
 
+    # Redis Pool
     redis = await aioredis.create_redis_pool(
         REDIS_URL,
         maxsize=REDIS_POOLSIZE or 10,
@@ -32,5 +36,6 @@ async def load_plugins(app):
     app.redis = redis
 
 
-async def cleanup_plugins(app):
+async def cleanup_extensions(app) -> None:
     app.redis.close()
+    await app.redis.wait_closed()
