@@ -2,6 +2,7 @@ import os
 
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost')
 REDIS_POOLSIZE = os.getenv('REDIS_URL', 10)
+REDIS_TIMEOUT = os.getenv('REDIS_TIMEOUT', 60)
 
 LOGGING = {
     'version': 1,

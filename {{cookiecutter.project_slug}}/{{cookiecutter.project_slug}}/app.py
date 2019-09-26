@@ -1,4 +1,5 @@
 from datetime import datetime
+
 import aioredis
 from aiohttp import web
 
@@ -21,7 +22,7 @@ def register_routes(app) -> None:
 
 async def load_extensions(app) -> None:
     # Additional data
-    app.uptime = app.loop.now()
+    app.started = datetime.utcnow()
     app.version = await get_version()
 
     # Redis Pool
