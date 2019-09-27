@@ -7,3 +7,15 @@
 - Python 3.7
 - Gunicorn with UVloop worker class.
 - Pipenv for Python dependency management.
+
+## Launch the app
+
+Use this button:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2Fosminogin%2Fcookiecutter-aiohttp-uvloop&template=https%3A%2F%2Fgithub.com%2Fosminogin%2Fcookiecutter-aiohttp-uvloop)
+
+Or alternatively:
+
+```bash
+make daemon
+```
