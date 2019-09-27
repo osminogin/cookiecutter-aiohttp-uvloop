@@ -3,21 +3,22 @@ FROM python:3.7-slim
 ENV PATH /root/.local/bin:$PATH
 ARG BUILD_DATE
 ARG VCS_REF
+ARG VERSION
 
 ENV PYTHONUNBUFFERED 1
 ENV PORT 8000
 ENV GUNICORN_WORKERS=2
 ENV GUNICORN_BACKLOG=4096
-ENV GUNICORN_BIND=0.0.0.0:${PORT}
-ENV GUNICORN_WORKER_TMP_DIR=/dev/shm
-ENV GUNICORN_LOG_FILE=-
 
 LABEL maintainer="osintsev@gmail.com" \
     org.label-schema.build-date="$BUILD_DATE" \
-    org.label-schema.docker.cmd="docker run --rm --publish ${PORT}:8000 --name {{cookiecutter.project_slug}}" \
+    org.label-schema.docker.cmd="docker run --rm --publish $PORT:8000 --name {{cookiecutter.project_slug}}" \
     org.label-schema.name="{{cookiecutter.description}}" \
+    org.label-schema.license="MIT" \
+    org.label-schema.usage="https://github.com/osminogin/cookiecutter-aiohttp-uvloop#usage" \
     org.label-schema.vcs-ref="$VCS_REF" \
-    org.label-schema.schema-version="1.0"
+    org.label-schema.schema-version="1.0" \
+    org.label-schema.version="$VERSION"
 
 
 HEALTHCHECK --start-period=5s --retries=2 CMD "/usr/bin/curl -f http://127.0.0.1/ping/"
@@ -33,4 +34,4 @@ RUN apt-get -y update && \
 
 EXPOSE $PORT
 
-CMD ["/usr/bin/env", "gunicorn", "{{cookiecutter.project_slug}}:app"]
+CMD ["make", "daemon"]

@@ -2,6 +2,7 @@ from datetime import datetime
 
 import aiopg
 import aioredis
+from aiocache import Cache
 from aiohttp import web
 
 from .settings import *  # noqa
@@ -35,12 +36,17 @@ async def load_extensions(app) -> None:
     # Redis pool
     redis = await aioredis.create_redis_pool(
         address=REDIS_URL,
-        maxsize=REDIS_POOLSIZE or 10,
+        maxsize=int(REDIS_POOLSIZE) or 10,
         timeout=REDIS_TIMEOUT or 60,
         encoding='utf-8',
         loop=app.loop
     )
     app.redis = redis
+
+    # Cache pool (separate from redis pool)
+    dsn = f"{CACHE_URL.rstrip('/')}/{CACHE_DB}?pool_min_size={CACHE_POOLSIZE}"
+    cache = Cache.from_url(dsn)
+    app.cache = cache
 
 
 async def cleanup_extensions(app) -> None:
@@ -49,3 +55,5 @@ async def cleanup_extensions(app) -> None:
 
     app.postgres.close()
     await app.postgres.wait_closed()
+
+    await app.cache.close()

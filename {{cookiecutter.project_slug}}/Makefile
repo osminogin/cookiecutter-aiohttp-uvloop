@@ -4,15 +4,15 @@ DOCKER ?= $(shell /usr/bin/env docker 2> /dev/null)
 APP := '{{cookiecutter.project_slug}}'
 VERSION ?= $(strip $(shell cat VERSION))
 COMMIT = $(strip $(shell git rev-parse --short HEAD))
-BRANCH = $(strip $(shell git rev-parse --abbrev-ref HEAD))
+BUILD_DATE = $(strip $(shell date -u +"%Y-%m-%dT%H:%M:%SZ"))
 TAG ?= latest
 IMAGE ?= eu.gcr.io/$(APP)/$(APP):$(TAG)
 
 default: daemon
 
 daemon:
-	@echo "Running async daemon ..."
-	@pipenv run gunicorn {{cookiecutter.project_slug}}:app --bind localhost:8000 \
+	@echo "Running async daemon on 0.0.0.0:8000 ..."
+	@pipenv run gunicorn {{cookiecutter.project_slug}}:app --bind 0.0.0.0:8000 \
 		--worker-class aiohttp.worker.GunicornUVLoopWebWorker \
 		--workers=2 \
 		--worker-tmp-dir /dev/shm \
@@ -29,7 +29,11 @@ analysis:
 
 build:
 	@echo Building container ...
-	@docker build -t $(IMAGE) .
+	@docker build --tag $(IMAGE) \
+		--build-arg BUILD_DATE=$(BUILD_DATE) \
+		--build-arg VCS_REF=$(COMMIT) \
+		--build-arg VERSION=$(VERSION)\
+		.
 
 dbshell:
 	@psql
