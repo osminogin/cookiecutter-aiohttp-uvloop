@@ -1,0 +1,27 @@
+language: python
+
+services:
+    - postgresql
+    - redis-server
+
+python:
+  - '3.6'
+
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
+env:
+  - DEBUG=False DATABASE_URL=postgres://postgres@localhost/postgres
+
+install:
+  - 'pip install --upgrade pipenv cookiecutter'
+  - 'cookiecutter --no-input -o / --default-config . && ls -la'
+  - 'pipenv sync'
+
+script:
+  - 'pwd'
+  - 'ls /generated'
+  - 'pipenv run pytest'

@@ -2,6 +2,7 @@ import aiofiles
 
 from .middlewares.version import version_middleware
 
+
 def get_middlewares():
     return (version_middleware,)
 
