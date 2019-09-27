@@ -64,10 +64,10 @@ target/
 
 # Vagrant
 .vagrant
-
-# Documentation
+corn doc
+# documentation
 site/
 
-.DS_Store
+.ds_store
 .idea
-!*.env
+!**/*.env
