@@ -16,9 +16,14 @@ Usage
 
 ```bash
 pip3 install --user cookiecutter pipenv
-${HOME}/.local/bin/cookiecutter https://github.com/osminogin/cookiecutter-aiohttp-uvloop.git
+export PATH $PATH:$HOME/.local/bin
+cookiecutter https://github.com/osminogin/cookiecutter-aiohttp-uvloop.git
 # Run from docker
-# XXX:
+docker run --rm --publish 8000:8800 -i osminogin/cookiecutter-aiohttp-uvloop
+# or all stack
+docker-compose up
+# or altenativly ...
+...
 ```
 
 License

@@ -59,8 +59,8 @@ def cleanup():
     """
     Removing unnecessary files from project directory.
     """
-    if '{{ cookiecutter.use_heroku }}' == 'n':
-        run(['rm', '-f', 'Procfile', 'app.json', 'runtime.txt'])
+    # if '{{ cookiecutter.use_heroku }}' == 'n':
+    #     run(['rm', '-f', 'Procfile', 'app.json', 'runtime.txt'])
     if '{{ cookiecutter.use_docker }}' == 'n':
         run(['rm', '-f', 'Dockerfile', '.dockerignore', 'docker-compose.yml'])
 

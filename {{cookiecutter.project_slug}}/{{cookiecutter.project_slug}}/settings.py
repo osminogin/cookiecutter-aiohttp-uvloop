@@ -1,7 +1,7 @@
 import os
 
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost')
-REDIS_DB = os.getenv('REDIS_DB', 0)
+REDIS_DB = os.getenv('REDIS_DB', 0)     # by default
 REDIS_POOLSIZE = os.getenv('REDIS_POOLSIZE', 10)
 REDIS_TIMEOUT = os.getenv('REDIS_TIMEOUT', 60)
 

@@ -10,7 +10,7 @@ from .utils import get_middlewares, get_version
 from .healthchecks.views import PingCheckView, HealthCheckView
 
 
-def build_app(loop=None):
+def build_app(loop=None) -> web.Application:
     app = web.Application(loop=loop, middlewares=get_middlewares())
     app.on_startup.append(load_extensions)
     app.on_cleanup.append(cleanup_extensions)
