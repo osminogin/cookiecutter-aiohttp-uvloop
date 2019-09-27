@@ -1,5 +1,9 @@
 {
-	"project_name": "api",
+  "author_name": "Vladimir Osintsev",
+  "email": "os@distributed.so",
+	"project_name": "app",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
-  "description": "A short description of the project."
+  "description": "A short description of the project.",
+  "use_docker": "n",
+  "use_heroku": "n"
 }
