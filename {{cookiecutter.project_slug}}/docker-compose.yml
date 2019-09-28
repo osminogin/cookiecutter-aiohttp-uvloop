@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
 
-  api:
+  app:
     build:
       context: .
     restart: always
@@ -13,7 +13,10 @@ services:
       - redis
     environment:
       - REDIS_URL=redis://redis
+      - PGHOST=postgres
+      - PGDATABASE=postgres
 
+  {%- if cookiecutter.use_postgres == 'y' %}
   postgres:
     image: postgres:11-alpine
     hostname: postgres
@@ -23,10 +26,28 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8001:80"
+    depends_on:
+      - postgres
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=postgres
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+      - ./contrib/pgadmin-server.json:/pgadmin4/servers.json
+  {% endif %}
+
+  {%- if cookiecutter.use_redis == 'y' %}
   redis:
     image: redis:alpine
     hostname: redis
     restart: always
+  {% endif %}
 
 volumes:
-  postgres-data:
+  {%- if cookiecutter.use_redis == 'y' %}postgres-data:{% endif %}
+  {%- if cookiecutter.use_postgres == 'y' %}pgadmin-data:{% endif %}
