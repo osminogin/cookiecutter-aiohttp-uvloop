@@ -28,11 +28,14 @@ async def load_extensions(app) -> None:
     app.started = datetime.utcnow()
     app.version = await get_version()
 
+    {% if cookiecutter.use_postgres == 'y' %}
     # PostgreSQL connection pool
-    dsn = f"dbname=postgres user=postgres password=postgres host=127.0.0.1"
+    dsn = f"dbname={PGDATABASE} user={PGUSER} password={PGPASSWORD} host={PGHOST}"
     postgres = await aiopg.create_pool(dsn)
     app.postgres = postgres
+    {% endif %}
 
+    {% if cookiecutter.use_redis == 'y' %}
     # Redis pool
     redis = await aioredis.create_redis_pool(
         address=REDIS_URL,
@@ -42,18 +45,27 @@ async def load_extensions(app) -> None:
         loop=app.loop
     )
     app.redis = redis
+    {% endif %}
 
+    {% if cookiecutter.use_caches == 'y' %}
     # Cache pool (separate from redis pool)
     dsn = f"{CACHE_URL.rstrip('/')}/{CACHE_DB}?pool_min_size={CACHE_POOLSIZE}"
     cache = Cache.from_url(dsn)
     app.cache = cache
+    {% endif %}
 
 
 async def cleanup_extensions(app) -> None:
+    {% if cookiecutter.use_redis == 'y' %}
     app.redis.close()
     await app.redis.wait_closed()
+    {% endif %}
 
+    {% if cookiecutter.use_postgres == 'y' %}
     app.postgres.close()
     await app.postgres.wait_closed()
+    {% endif %}
 
+    {% if cookiecutter.use_caches == 'y' %}
     await app.cache.close()
+    {% endif %}

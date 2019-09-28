@@ -1,5 +1,10 @@
 import os
 
+PGHOST = os.getenv('PGHOST', 'postgres')
+PGUSER = os.getenv('PGUSER', 'postgres')
+PGPASSWORD = os.getenv('PGPASSWORD', 'postgres')
+PGDATABASE = os.getenv('PGDATABASE', 'postgres')
+
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost')
 REDIS_DB = os.getenv('REDIS_DB', 0)     # by default
 REDIS_POOLSIZE = os.getenv('REDIS_POOLSIZE', 10)
