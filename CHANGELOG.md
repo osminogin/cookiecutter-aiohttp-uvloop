@@ -15,3 +15,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Gunicorn daemon runs with UVloop worker class.
 - Readme file updated.
 - Licesnsed under MIT license.
+- More cookiecutter questions on new project creation.
