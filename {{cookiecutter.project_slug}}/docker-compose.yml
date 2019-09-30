@@ -8,9 +8,11 @@ services:
     restart: always
     ports:
       - "8000:8000"
+    {% if cookiecutter.use_postgres == 'y' or cookiecutter.use_redis == 'y' %}
     depends_on:
-      - postgres
-      - redis
+      {% if cookiecutter.use_postgres == 'y' %}- postgres{% endif %}
+      {% if cookiecutter.use_redis == 'y' %}- redis{% endif %}
+    {% endif %}
     environment:
       - REDIS_URL=redis://redis
       - PGHOST=postgres
@@ -49,5 +51,5 @@ services:
   {% endif %}
 
 volumes:
-  {%- if cookiecutter.use_redis == 'y' %}postgres-data:{% endif %}
-  {%- if cookiecutter.use_postgres == 'y' %}pgadmin-data:{% endif %}
+  {% if cookiecutter.use_redis == 'y' %}postgres-data:{% endif %}
+  {% if cookiecutter.use_postgres == 'y' %}pgadmin-data:{% endif %}
