@@ -2,6 +2,8 @@
 
 {{cookiecutter.description}}
 
+Initially generated from [cookiecutter aiohttp uvloop]() project template.
+
 ## Features
 
 - Python 3.7

@@ -16,3 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Readme file updated.
 - Licesnsed under MIT license.
 - More cookiecutter questions on new project creation.
+
+### Removed
+- Aiocache dependency removed in favor aioredis.
