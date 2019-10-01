@@ -10,10 +10,6 @@ REDIS_DB = os.getenv('REDIS_DB', 0)     # by default
 REDIS_POOLSIZE = os.getenv('REDIS_POOLSIZE', 10)
 REDIS_TIMEOUT = os.getenv('REDIS_TIMEOUT', 60)
 
-CACHE_URL = os.getenv('CACHE_URL', os.getenv('REDIS_URL', 'redis://localhost'))
-CACHE_DB = os.getenv('CACHE_DB', 1)
-CACHE_POOLSIZE = os.getenv('CACHE_POOLSIZE', 10)
-
 LOGGING = {
     'version': 1,
     'formatters': {
