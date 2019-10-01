@@ -6,7 +6,7 @@ A [cookiecutter](https://github.com/audreyr/cookiecutter) project template for a
 
 Features
 --------
-- Python 3.7 support (latest available version).
+- Python 3.6, 3.7 support (latest available versions).
 - Gunicorn with UVloop worker class.
 - Docker and docker-compose support.
 - Pipenv for Python dependency management.
@@ -17,9 +17,9 @@ Usage
 ```bash
 pip3 install --user cookiecutter pipenv
 export PATH $PATH:$HOME/.local/bin
-cookiecutter https://github.com/osminogin/cookiecutter-aiohttp-uvloop.git
+cookiecutter gh:osminogin/cookiecutter-aiohttp-uvloop
 # Run from docker
-docker run --rm --publish 8000:8800 -i osminogin/cookiecutter-aiohttp-uvloop
+docker run --rm --publish 8000:8000 -i osminogin/cookiecutter-aiohttp-uvloop
 # or all stack
 docker-compose up
 # or altenativly ...
