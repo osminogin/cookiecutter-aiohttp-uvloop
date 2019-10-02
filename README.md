@@ -1,6 +1,6 @@
 cookiecutter-aiohttp-uvloop
 ===========================
-[![](https://img.shields.io/github/release/osminogin/cookiecutter-aiohttp-uvloop.svg?style=flat)](https://github.com/osminogin/cookiecutter-aiohttp-uvloop/releases/latest) ![python 3.7](https://img.shields.io/badge/python-3.7-green.svg?style=flat) ![LICENSE.md](https://img.shields.io/badge/license-MIT-green.svg) [![Requirements Status](https://requires.io/github/osminogin/cookiecutter-aiohttp-uvloop/requirements.svg?branch=master)](https://requires.io/github/osminogin/cookiecutter-aiohttp-uvloop/requirements/?branch=master)
+[![](https://img.shields.io/github/release/osminogin/cookiecutter-aiohttp-uvloop.svg?style=flat)](https://github.com/osminogin/cookiecutter-aiohttp-uvloop/releases/latest) ![python 3.6, 3.7](https://img.shields.io/badge/python-3.6,%203.7-green.svg?style=flat) ![LICENSE.md](https://img.shields.io/badge/license-MIT-green.svg) [![Requirements Status](https://requires.io/github/osminogin/cookiecutter-aiohttp-uvloop/requirements.svg?branch=master)](https://requires.io/github/osminogin/cookiecutter-aiohttp-uvloop/requirements/?branch=master)
 
 A [cookiecutter](https://github.com/audreyr/cookiecutter) project template for aiohttp on uvloop workers.
 

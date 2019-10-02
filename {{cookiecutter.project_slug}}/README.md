@@ -6,7 +6,7 @@ Initially generated from [cookiecutter aiohttp uvloop]() project template.
 
 ## Features
 
-- Python 3.7
+- Python 3.6, 3.7
 - Gunicorn with UVloop worker class.
 - Pipenv for Python dependency management.
 
