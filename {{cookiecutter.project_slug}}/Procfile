@@ -1,1 +1,1 @@
-web: make daemon
+web: make daemon PORT=${PORT} WORKER_PROCESSES=${WORKER_PROCESSES:-5}

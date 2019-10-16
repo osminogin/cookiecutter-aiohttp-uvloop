@@ -12,7 +12,8 @@ class TestPingHealthCheck:
         for c in app.redis._connections:
             app.loop.run_until_complete(c._reconnect())
 
-    async def test_health_success(self, client):
+    async def test_health_success(self, aiohttp_client, event_loop, app):
+        client = await aiohttp_client(app)
         response = await client.get('/health/')
         assert response.status == 200
 

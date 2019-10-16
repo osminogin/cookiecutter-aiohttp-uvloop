@@ -1,25 +1,27 @@
-PYTHON = $(/usr/bin/env pipenv --py)
+PYTHON := $(shell /usr/bin/env pipenv --py)
 HEROKU ?= $(shell /usr/bin/env heroku 2> /dev/null)
 DOCKER ?= $(shell /usr/bin/env docker 2> /dev/null)
-APP := '{{cookiecutter.project_slug}}'
+APP := {{cookiecutter.project_slug}}
 VERSION ?= $(strip $(shell cat VERSION))
 COMMIT = $(strip $(shell git rev-parse --short HEAD))
 BUILD_DATE = $(strip $(shell date -u +"%Y-%m-%dT%H:%M:%SZ"))
+PORT ?= 8000
+WORKER_PROCESSES ?= 4
 TAG ?= latest
-IMAGE ?= eu.gcr.io/$(APP)/$(APP):$(TAG)
+IMAGE ?= $(APP):$(TAG)
 
 default: daemon
 
 daemon:
-	@echo "Running async daemon on 0.0.0.0:8000 ..."
-	@pipenv run gunicorn {{cookiecutter.project_slug}}:app --bind 0.0.0.0:8000 \
+	@echo "Running async daemon on 0.0.0.0:$(PORT) ..."
+	@pipenv run gunicorn {{cookiecutter.project_slug}}:app --bind 0.0.0.0:$(PORT) \
 		--worker-class aiohttp.worker.GunicornUVLoopWebWorker \
-		--workers=2 \
+		--workers=$(WORKER_PROCESSES) \
 		--worker-tmp-dir /dev/shm \
 		--log-file=-
 
 test:
-	@pipenv run pytest
+	@$(PYTHON) -m pytest
 
 analysis:
 	@echo "Starting static analysis ..."
@@ -29,7 +31,7 @@ analysis:
 
 build:
 	@echo Building container ...
-	@docker build --tag $(IMAGE) \
+	@$(DOCKER) build --tag $(IMAGE) \
 		--build-arg BUILD_DATE=$(BUILD_DATE) \
 		--build-arg VCS_REF=$(COMMIT) \
 		--build-arg VERSION=$(VERSION)\
@@ -45,4 +47,9 @@ endif
 	@sudo apt-get install -y postgresql-client
 	@docker-compose up postgres redis	# pgadmin4
 
-.PHONY: default daemon deps test build analysis dbshell
+heroku:
+	@heroku create
+	@heroku config:set ROOT_LOG_LEVEL=INFO
+	@git push heroku master
+
+.PHONY: default daemon deps test build analysis dbshell heroku

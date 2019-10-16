@@ -2,7 +2,6 @@ from datetime import datetime
 
 import aiopg
 import aioredis
-from aiocache import Cache
 from aiohttp import web
 
 from .settings import *  # noqa
@@ -28,14 +27,14 @@ async def load_extensions(app) -> None:
     app.started = datetime.utcnow()
     app.version = await get_version()
 
-    {%- if cookiecutter.use_postgres == 'y' %}
+    {% if cookiecutter.use_postgres == 'y' -%}
     # PostgreSQL connection pool
     dsn = f"dbname={PGDATABASE} user={PGUSER} password={PGPASSWORD} host={PGHOST}"
     postgres = await aiopg.create_pool(dsn)
     app.postgres = postgres
-    {% endif %}
+    {%- endif %}
 
-    {%- if cookiecutter.use_redis == 'y' %}
+    {% if cookiecutter.use_redis == 'y' -%}
     # Redis pool
     redis = await aioredis.create_redis_pool(
         address=REDIS_URL,
@@ -45,16 +44,16 @@ async def load_extensions(app) -> None:
         loop=app.loop
     )
     app.redis = redis
-    {% endif %}
+    {%- endif %}
 
 
 async def cleanup_extensions(app) -> None:
-    {%- if cookiecutter.use_postgres == 'y' %}
+    """ Cleanup on exit. """
+    {% if cookiecutter.use_postgres == 'y' -%}
     app.postgres.close()
     await app.postgres.wait_closed()
-    {% endif %}
-
-    {%- if cookiecutter.use_redis == 'y' %}
+    {%- endif %}
+    {% if cookiecutter.use_redis == 'y' -%}
     app.redis.close()
     await app.redis.wait_closed()
-    {% endif %}
+    {%- endif %}

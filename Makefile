@@ -1,3 +1,5 @@
+KUBECTL := $(shell /usr/bin/env kubectl 2> /dev/null)
+
 default: generate
 
 generate:
@@ -6,4 +8,12 @@ generate:
 clean:
 	@rm -rf ../{{cookiecutter.project_slug}}
 
-.PHONY: default generate clean
+deps:
+ifndef KUBECTL
+	@echo "Warning: You must install `kubectl` utility"
+endif
+
+info: deps
+	kubectl config current-context
+
+.PHONY: default generate clean info deps

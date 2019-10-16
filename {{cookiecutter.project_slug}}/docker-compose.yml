@@ -12,13 +12,15 @@ services:
     depends_on:
       {% if cookiecutter.use_postgres == 'y' %}- postgres{% endif %}
       {% if cookiecutter.use_redis == 'y' %}- redis{% endif %}
-    {% endif %}
     environment:
-      - REDIS_URL=redis://redis
+      {% if cookiecutter.use_redis == 'y' -%}- REDIS_URL=redis://redis{%- endif %}
+      {% if cookiecutter.use_posgres -%}
       - PGHOST=postgres
       - PGDATABASE=postgres
+      {%- endif %}
+  {%- endif %}
 
-  {%- if cookiecutter.use_postgres == 'y' %}
+  {% if cookiecutter.use_postgres == 'y' -%}
   postgres:
     image: postgres:11-alpine
     hostname: postgres
@@ -41,15 +43,17 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
       - ./contrib/pgadmin-server.json:/pgadmin4/servers.json
-  {% endif %}
+  {%- endif %}
 
-  {%- if cookiecutter.use_redis == 'y' %}
+  {% if cookiecutter.use_redis == 'y' -%}
   redis:
     image: redis:alpine
     hostname: redis
     restart: always
-  {% endif %}
+  {%- endif %}
 
+{% if cookiecutter.use_postgres == 'y' or cookiecutter.use_redis == 'y' -%}
 volumes:
-  {% if cookiecutter.use_redis == 'y' %}postgres-data:{% endif %}
-  {% if cookiecutter.use_postgres == 'y' %}pgadmin-data:{% endif %}
+  {% if cookiecutter.use_redis == 'y' -%}postgres-data:{%- endif %}
+  {% if cookiecutter.use_postgres == 'y' -%}pgadmin-data:{%- endif %}
+{%- endif %}

@@ -10,5 +10,5 @@ def app(event_loop):
 
 
 @pytest.fixture
-def client(event_loop, aiohttp_client):
+def client(event_loop, aiohttp_client, app):
     return event_loop.run_until_complete(aiohttp_client(app))
