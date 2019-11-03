@@ -14,7 +14,7 @@ services:
       {% if cookiecutter.use_redis == 'y' %}- redis{% endif %}
     environment:
       {% if cookiecutter.use_redis == 'y' -%}- REDIS_URL=redis://redis{%- endif %}
-      {% if cookiecutter.use_posgres -%}
+      {% if cookiecutter.use_postgres -%}
       - PGHOST=postgres
       - PGDATABASE=postgres
       {%- endif %}

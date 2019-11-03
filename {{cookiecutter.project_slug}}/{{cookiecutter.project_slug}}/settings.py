@@ -1,14 +1,20 @@
 import os
 
+SECRET_KEY = os.getenv('SECRET_KEY', '^^CHANGE^^ME^^')
+
+{% if cookiecutter.use_postgres == 'y' -%}
 PGHOST = os.getenv('PGHOST', 'postgres')
 PGUSER = os.getenv('PGUSER', 'postgres')
 PGPASSWORD = os.getenv('PGPASSWORD', 'postgres')
 PGDATABASE = os.getenv('PGDATABASE', 'postgres')
+{% endif %}
 
+{% if cookiecutter.use_redis == 'y' -%}
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost')
-REDIS_DB = os.getenv('REDIS_DB', 0)     # by default
+REDIS_DB = os.getenv('REDIS_DB', 0)     # By default
 REDIS_POOLSIZE = os.getenv('REDIS_POOLSIZE', 10)
-REDIS_TIMEOUT = os.getenv('REDIS_TIMEOUT', 60)
+REDIS_TIMEOUT = os.getenv('RsEDIS_TIMEOUT', 60)
+{% endif %}
 
 LOGGING = {
     'version': 1,

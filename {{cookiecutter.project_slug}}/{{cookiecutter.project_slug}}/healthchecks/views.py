@@ -15,7 +15,9 @@ class HealthCheckView(web.View):
     Health checks view.
     """
     async def get(self):
-        data = {}
+        data = {
+            'uptime': await self._get_uptime()
+        }
         {% if cookiecutter.use_postgres == 'y' %}
         postgres_health = await self._check_postgres()
         data['postgres'] = postgres_health
@@ -24,8 +26,6 @@ class HealthCheckView(web.View):
         redis_health = await self._check_redis()
         data['redis'] = redis_health
         {% endif %}
-        uptime = await self._check_uptime()
-        data['uptime'] = uptime
         # Returns JSON-response from dict
         return web.json_response(data)
 
@@ -33,7 +33,7 @@ class HealthCheckView(web.View):
     async def _check_postgres(self) -> bool:
         async with self.request.app.postgres.acquire() as conn:
             async with conn.cursor() as cur:
-                await cur.execute('SELECT 1')   # example request
+                await cur.execute('SELECT 1')   # Example request
                 ret = []
                 async for row in cur:
                     ret.append(row)

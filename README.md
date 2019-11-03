@@ -10,20 +10,22 @@ Features
 - Gunicorn with UVloop asyncio event loop built on top of libuv ([read why](http://magic.io/blog/uvloop-blazing-fast-python-networking/).
 - Docker and docker-compose support.
 - Pipenv for Python dependency management.
+- Heroku deployment support.
 
 Usage
 -----
 
 ```bash
-pip3 install --user cookiecutter pipenv
-export PATH $PATH:$HOME/.local/bin
+sudo pip3 install --upgrade cookiecutter pipenv
 cookiecutter gh:osminogin/cookiecutter-aiohttp-uvloop
-# Run from docker
+# Run HTTP daemon
+make daemon
+# or with docker
 docker run --rm --publish 8000:8000 -i osminogin/cookiecutter-aiohttp-uvloop
 # or all stack
 docker-compose up
-# or altenativly ...
-...
+# or altenativly run development server
+make dev
 ```
 
 License

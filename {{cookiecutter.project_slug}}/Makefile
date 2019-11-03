@@ -20,7 +20,10 @@ daemon:
 		--worker-tmp-dir /dev/shm \
 		--log-file=-
 
-test:
+dev:
+	@$(PYTHON) -m aiohttp.web -H localhost -P $(PORT) $(APP):build_app
+
+tests:
 	@$(PYTHON) -m pytest
 
 analysis:
@@ -52,4 +55,4 @@ heroku:
 	@heroku config:set ROOT_LOG_LEVEL=INFO
 	@git push heroku master
 
-.PHONY: default daemon deps test build analysis dbshell heroku
+.PHONY: default daemon dev deps tests build analysis dbshell heroku

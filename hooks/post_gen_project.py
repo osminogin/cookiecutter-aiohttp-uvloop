@@ -1,5 +1,4 @@
 import subprocess
-from pathlib import Path
 
 
 def run(command):
@@ -30,37 +29,24 @@ def setup_git_repo():
     run([git, 'commit', '-m', 'Initial commit'])
 
 
-# def setup_virtualenv(python):
-#     python = which(python)
-#     try:
-#         # First try bundled venv module
-#         import venv     # noqa
-#         run([python, '-m', 'venv', './env'])
-#     except ImportError:
-#         # Second try use virtualenv
-#         try:
-#             virtualenv = which('virtualenv')
-#             run([virtualenv, '-p', python, './venv'])
-#         except AssertionError:
-#             raise RuntimeError('Python venv module or virtualenv required')
-
-
 def install_dependencies():
     """
-    Install project dependencies inside venv.
+    Install project dependencies.
     """
-    python = which('python')
+    pip3 = which('pip3')
     env = which('env')
-    run([python, '-m', 'ensurepip', 'install', '-U', 'pipenv'])
-    run([env, 'pipenv', 'install'])
+    run([pip3, 'install', '--upgrade', 'pipenv'])
+    run([env, 'pipenv', 'install', '--dev'])
 
 
 def cleanup():
     """
     Removing unnecessary files from project directory.
     """
-    # if '{{ cookiecutter.use_heroku }}' == 'n':
-    #     run(['rm', '-f', 'Procfile', 'app.json', 'runtime.txt'])
+    if '{{ cookiecutter.use_heroku }}' == 'n':
+        run(['rm', '-f', 'Procfile', 'app.json', 'runtime.txt'])
+    if '{{ cookiecutter.use_postgres }}' == 'n':
+        run(['rm', '-rf', 'contrib'])
     if '{{ cookiecutter.use_docker }}' == 'n':
         run(['rm', '-f', 'Dockerfile', '.dockerignore', 'docker-compose.yml'])
 
