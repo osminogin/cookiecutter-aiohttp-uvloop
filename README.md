@@ -7,7 +7,7 @@ A [cookiecutter](https://github.com/audreyr/cookiecutter) project template for a
 Features
 --------
 - Python 3.6, 3.7 support (latest available versions).
-- Gunicorn with UVloop asyncio event loop built on top of libuv ([read why](http://magic.io/blog/uvloop-blazing-fast-python-networking/).
+- Gunicorn with UVloop asyncio event loop built on top of libuv ([read why](http://magic.io/blog/uvloop-blazing-fast-python-networking/)).
 - Docker and docker-compose support.
 - Pipenv for Python dependency management.
 - Heroku deployment support.

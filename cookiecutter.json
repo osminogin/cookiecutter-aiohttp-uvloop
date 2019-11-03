@@ -4,9 +4,9 @@
 	"project_name": "app",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_') }}",
   "description": "A short description of the project.",
-  "project_version": "0.1",
+  "project_version": "0.0.1",
   "use_postgres": "n",
-  "use_redis": "y",
-  "use_docker": "y",
+  "use_redis": "n",
+  "use_docker": "n",
   "use_heroku": "n"
 }

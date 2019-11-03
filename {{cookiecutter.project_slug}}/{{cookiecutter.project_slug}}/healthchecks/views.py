@@ -48,7 +48,7 @@ class HealthCheckView(web.View):
         return redis_health == '1'
     {% endif %}
 
-    async def _check_uptime(self) -> int:
+    async def _get_uptime(self) -> int:
         """ Server uptime in seconds. """
         uptime = datetime.utcnow() - self.request.app.started
         return int(uptime.total_seconds())

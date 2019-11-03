@@ -22,7 +22,6 @@ def which(command):
 
 def setup_git_repo():
     git = which('git')
-    print(git)
     run([git, 'init'])
     run([git, 'add', '.'])
     run([git, 'status'])
@@ -52,7 +51,7 @@ def cleanup():
 
 
 if __name__ == '__main__':
-    setup_git_repo()
     install_dependencies()
-    print('\n{{cookiecutter.project_slug}} setup successfully!\n\n')
     cleanup()
+    setup_git_repo()
+    print('\n{{cookiecutter.project_slug}} setup successfully!\n\n')

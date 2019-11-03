@@ -6,7 +6,7 @@ verify_ssl = true
 [packages]
 aiohttp = {extras = ["speedups"], version = ">=2.3.5"}
 aiohttp-jwt = "*"
-{%- if cookiecutter.use_postgres == 'y' -%}
+{% if cookiecutter.use_postgres == 'y' -%}
 aiopg = "*"
 "psycopg2-binary" = ">=2.7.3.2"
 {%- endif %}

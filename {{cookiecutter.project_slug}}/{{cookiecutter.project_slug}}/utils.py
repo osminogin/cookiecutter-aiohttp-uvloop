@@ -6,14 +6,14 @@ import aiofiles
 from .middlewares.version import version_middleware
 
 
-def get_middlewares():
+def get_middlewares() -> tuple:
     return (version_middleware,)
 
 
-async def get_version():
+async def get_version() -> str:
     async with aiofiles.open('VERSION', mode='r') as f:
         version = await f.read()
-    return version
+    return version.rstrip()
 
 
 async def fetch(session, url, destination=None) -> None:

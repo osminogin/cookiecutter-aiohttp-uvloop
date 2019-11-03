@@ -2,13 +2,14 @@
 
 {{cookiecutter.description}}
 
-Initially generated from [cookiecutter aiohttp uvloop]() project template.
+Initially generated from [cookiecutter aiohttp uvloop](https://github.com/osminogin/cookiecutter-aiohttp-uvloop) project template.
 
 ## Features
 
 - Python 3.6, 3.7
 - Gunicorn with UVloop worker class.
 - Pipenv for Python dependency management.
+- Heroku deployment support.
 
 ## Launch the app
 

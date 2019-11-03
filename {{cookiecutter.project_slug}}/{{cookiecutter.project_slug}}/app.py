@@ -1,6 +1,6 @@
 from datetime import datetime
 
-{% if cookiecutter.use_postgres == 'y' -%}import aiopg{%- endif -%}
+{% if cookiecutter.use_postgres == 'y' -%}import aiopg{%- endif %}
 {% if cookiecutter.use_redis == 'y' -%}import aioredis{%- endif %}
 from aiohttp import web
 
@@ -52,8 +52,7 @@ async def cleanup_handler(app) -> None:
     {% if cookiecutter.use_postgres == 'y' -%}
     app.postgres.close()
     await app.postgres.wait_closed()
-    {%- endif -%}
-
+    {%- endif %}
     {% if cookiecutter.use_redis == 'y' -%}
     app.redis.close()
     await app.redis.wait_closed()
