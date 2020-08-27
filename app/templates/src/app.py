@@ -6,7 +6,7 @@ from aiohttp import web
 
 from .settings import *  # noqa
 from .utils import get_middlewares, get_version
-from .healthchecks.views import PingCheckView, HealthCheckView
+from .healthcheck.views import PingCheckView, HealthCheckView
 
 
 def build_app(argv=None) -> web.Application:

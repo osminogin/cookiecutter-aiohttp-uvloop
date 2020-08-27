@@ -6,7 +6,7 @@ Initially generated from [cookiecutter aiohttp uvloop](https://github.com/osmino
 
 ## Features
 
-- Python 3.6, 3.7
+- Python 3.6, 3.7, 3.8
 - Gunicorn with UVloop worker class.
 - Pipenv for Python dependency management.
 - Heroku deployment support.

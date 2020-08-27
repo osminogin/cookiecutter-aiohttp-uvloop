@@ -1,7 +1,7 @@
 import pytest
 
-from .. import app as _app
-from .. import loop as _loop
+from app.templates import app as _app
+from app.templates import loop as _loop
 
 
 @pytest.fixture

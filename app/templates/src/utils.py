@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 
 import aiofiles
 
-from .middlewares.version import version_middleware
+from .middleware.version import version_middleware
 
 
 def get_middlewares() -> tuple:

@@ -23,7 +23,7 @@ LABEL maintainer="{{cookiecutter.email}}" \
 
 HEALTHCHECK --start-period=5s --retries=2 CMD "/usr/bin/curl -f http://127.0.0.1/ping/"
 
-COPY . /app
+COPY .. /app
 WORKDIR /app
 
 RUN apt-get -y update && \

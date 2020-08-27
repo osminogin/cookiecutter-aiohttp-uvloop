@@ -14,14 +14,14 @@ aiopg = "*"
 aiofiles = "*"
 uvloop = "*"
 gunicorn = "*"
+
+[dev-packages]
 pytest = "*"
 pytest-aiohttp = "*"
 pytest-flakes = "*"
-
-[dev-packages]
-flake8 = "*"
 pylint = "*"
+flake8 = "*"
 isort = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
