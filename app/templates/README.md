@@ -1,6 +1,4 @@
-# {{cookiecutter.project_name}}
-
-{{cookiecutter.description}}
+# <%= project_slug.replace("_", " ") %>
 
 Initially generated from [cookiecutter aiohttp uvloop](https://github.com/osminogin/cookiecutter-aiohttp-uvloop) project template.
 

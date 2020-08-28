@@ -1,10 +1,15 @@
 {
-  "name": "Heroku aiohttp with uvloop app",
-  "description": "A barebones aiohttp app using gunicorn with uvloop",
-  "repository": "https://github.com/osminogin/cookiecutter-aiohttp-uvloop",
-  "keywords": ["python", "aiohttp", "asyncio", "uvloop"],
+  "name": "<%= project_slug %>",
+  "keywords": [
+    "python",
+    "aiohttp",
+    "asyncio",
+    "uvloop"
+  ],
   "buildpacks": [
-    {"url": "https://github.com/heroku/heroku-buildpack-multi"}
+    {
+      "url": "heroku/python"
+    }
   ],
   "env": {
     "ROOT_LOG_LEVEL": {

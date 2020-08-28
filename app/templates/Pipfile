@@ -6,19 +6,19 @@ verify_ssl = true
 [packages]
 aiohttp = {extras = ["speedups"], version = ">=2.3.5"}
 aiohttp-jwt = "*"
-{% if cookiecutter.use_postgres == 'y' -%}
+<%_ if (use_postgres) { _%>
 aiopg = "*"
 "psycopg2-binary" = ">=2.7.3.2"
-{%- endif %}
-{% if cookiecutter.use_redis == 'y' -%}aioredis = "*"{%- endif %}
+<%_ } _%>
+<% if (use_redis) { %>aioredis = "*"<% } %>
 aiofiles = "*"
 uvloop = "*"
 gunicorn = "*"
-
-[dev-packages]
 pytest = "*"
 pytest-aiohttp = "*"
 pytest-flakes = "*"
+
+[dev-packages]
 pylint = "*"
 flake8 = "*"
 isort = "*"

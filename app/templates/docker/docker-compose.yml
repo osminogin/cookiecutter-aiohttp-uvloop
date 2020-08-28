@@ -8,21 +8,21 @@ services:
     restart: always
     ports:
       - "8000:8000"
-    {% if cookiecutter.use_postgres == 'y' or cookiecutter.use_redis == 'y' %}
+    <%_ if (use_postgres || use_redis) { _%>
     depends_on:
-      {% if cookiecutter.use_postgres == 'y' %}- postgres{% endif %}
-      {% if cookiecutter.use_redis == 'y' %}- redis{% endif %}
+      <%_ if (use_postgres) { _%>- postgres<%_ } _%>
+      <%_ if (use_redis) { _%>- redis<%_ } _%>
     environment:
-      {% if cookiecutter.use_redis == 'y' -%}- REDIS_URL=redis://redis{%- endif %}
-      {% if cookiecutter.use_postgres -%}
+      <%_ if (use_redis) { _%>- REDIS_URL=redis://redis<%_ } _%>
+      <%_ if (use_postgres) { _%>
       - PGHOST=postgres
       - PGDATABASE=postgres
-      {%- endif %}
-  {%- endif %}
+      <%_ } _%>
+  <%_ } _%>
 
-  {% if cookiecutter.use_postgres == 'y' -%}
+  <%_ if (use_postgres) { _%>
   postgres:
-    image: postgres:11-alpine
+    image: postgres:alpine
     hostname: postgres
     restart: always
     ports:
@@ -34,7 +34,7 @@ services:
     image: dpage/pgadmin4
     restart: always
     ports:
-      - "8001:80"
+      - "8080:80"
     depends_on:
       - postgres
     environment:
@@ -42,18 +42,18 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=postgres
     volumes:
       - pgadmin-data:/var/lib/pgadmin
-      - ./contrib/pgadmin-server.json:/pgadmin4/servers.json
-  {%- endif %}
+      - ./pgadmin-server.json:/pgadmin4/servers.json
+  <%_ } _%>
 
-  {% if cookiecutter.use_redis == 'y' -%}
+  <%_ if (use_redis) { _%>
   redis:
     image: redis:alpine
     hostname: redis
     restart: always
-  {%- endif %}
+  <%_ } _%>
 
-{% if cookiecutter.use_postgres == 'y' or cookiecutter.use_redis == 'y' -%}
+<%_ if (use_postgres || use_redis) { _%>
 volumes:
-  {% if cookiecutter.use_redis == 'y' -%}postgres-data:{%- endif %}
-  {% if cookiecutter.use_postgres == 'y' -%}pgadmin-data:{%- endif %}
-{%- endif %}
+  <%_ if (use_redis) { _%>postgres-data:<%_ } _%>
+  <%_ if (use_postgres) { _%>pgadmin-data:<%_ } _%>
+<%_ } _%>

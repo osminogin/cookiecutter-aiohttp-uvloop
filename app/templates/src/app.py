@@ -1,7 +1,7 @@
 from datetime import datetime
 
-{% if cookiecutter.use_postgres == 'y' -%}import aiopg{%- endif %}
-{% if cookiecutter.use_redis == 'y' -%}import aioredis{%- endif %}
+<% if (use_postgres) { %>import aiopg<% } %>
+<% if (use_redis) { %>import aioredis<% } %>
 from aiohttp import web
 
 from .settings import *  # noqa
@@ -27,14 +27,14 @@ async def startup_handler(app) -> None:
     app.started = datetime.utcnow()
     app.version = await get_version()
 
-    {% if cookiecutter.use_postgres == 'y' -%}
+    <%_ if (use_postgres) { _%>
     # PostgreSQL connection pool
     dsn = f"dbname={PGDATABASE} user={PGUSER} password={PGPASSWORD} host={PGHOST}"
     postgres = await aiopg.create_pool(dsn)
     app.postgres = postgres
-    {%- endif -%}
+    <%_ } _%>
 
-    {% if cookiecutter.use_redis == 'y' -%}
+    <%_ if (use_redis) { _%>
     # Redis pool
     redis = await aioredis.create_redis_pool(
         address=REDIS_URL,
@@ -44,17 +44,17 @@ async def startup_handler(app) -> None:
         loop=app.loop
     )
     app.redis = redis
-    {%- endif %}
+    <%_ } _%>
 
 
 async def cleanup_handler(app) -> None:
     """ Cleanup on exit. """
-    {% if cookiecutter.use_postgres == 'y' -%}
+    <%_ if (use_postgres) { _%>
     app.postgres.close()
     await app.postgres.wait_closed()
-    {%- endif %}
-    {% if cookiecutter.use_redis == 'y' -%}
+    <%_ } _%>
+    <%_ if (use_redis) { _%>
     app.redis.close()
     await app.redis.wait_closed()
-    {%- endif %}
+    <%_ } _%>
 
