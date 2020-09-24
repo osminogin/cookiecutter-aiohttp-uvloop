@@ -1,7 +1,7 @@
 {
   "name": "generator-aiohttp-uvloop",
   "author": "Vladimir Osintsev <6wavx7o33@relay.firefox.com>",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generates a Python and aiohttp project with UVloop event loop",
   "homepage": "https://github.com/osminogin/generator-aiohttp-uvloop#readme",
   "license": "MIT",
