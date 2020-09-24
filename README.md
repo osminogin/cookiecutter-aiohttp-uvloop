@@ -1,6 +1,6 @@
 generator-aiohttp-uvloop
 ========================
-![Python 3.6, 3.7, 3.8](https://img.shields.io/badge/Python-3.6,%203.7,%203.8-green.svg?style=flat) [![LICENSE](https://img.shields.io/badge/License-MIT-black.svg)](https://github.com/osminogin/generator-aiohttp-uvloop/blob/master/LICENSE)
+![Python 3.6, 3.7, 3.8](https://img.shields.io/badge/python-3.6,%203.7,%203.8-green.svg?style=flat) [![NPM Badge](https://img.shields.io/npm/v/generator-aiohttp-uvloop.svg)](https://www.npmjs.com/package/generator-aiohttp-uvloop) [![Licensed under MIT](https://img.shields.io/badge/license-MIT-black.svg)](https://github.com/osminogin/generator-aiohttp-uvloop/blob/master/LICENSE)
 
 > Generates a Python and AIOHTTP project with ultra fast UVloop event loop.
 
@@ -33,4 +33,4 @@ make dev
 License
 -------
 
-See [LICENSE](https://github.com/osminogin/generator-aiohttp-uvloop/blob/master/LICENSE)
+MIT. See [LICENSE](https://github.com/osminogin/generator-aiohttp-uvloop/blob/master/LICENSE)
