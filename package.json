@@ -1,0 +1,34 @@
+{
+  "name": "generator-aiohttp-uvloop",
+  "author": "Vladimir Osintsev <6wavx7o33@relay.firefox.com>",
+  "version": "0.1.0",
+  "description": "Generates a Python and aiohttp project with UVloop event loop",
+  "homepage": "https://github.com/osminogin/generator-aiohttp-uvloop#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "app"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^4.11.0",
+    "yosay": "^2.0.2"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "python",
+    "asyncio",
+    "aiohttp",
+    "uvloop"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osminogin/generator-aiohttp-uvloop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/osminogin/generator-aiohttp-uvloop/issues",
+    "email": "6wavx7o33@relay.firefox.com"
+  }
+}
